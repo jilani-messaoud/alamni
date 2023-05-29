@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+    <h2>liste des formations | <small> <a href="{{ path('ajouter') }}">Ajouter</a></small></h2>
+    {% for msg in app.flashes('notice') %} {{ msg }} {% endfor %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    <table class="table table-hover table-striped" border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>titre</th>
+            <th>price</th>
+            <th>duration</th>
+            <th>begin_at</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for formation in lesformations %}
+            <tr>
+                <td>{{ formation.id }}</td>
+                <td>{{ formation.titre }}</td>
+                <td>{{ formation.price }}</td>
+                <td>{{ formation.duration }}</td>
+                <td>{{ formation.getBeginAt() |date('d-m-Y')}}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('ajouter') }}">Ajouter</a>
+                    <a class="btn btn-success"  href="/ALAMNI/public/index.php/modifier/{{formation.id}}">Modifier</a>
+                    <a class="btn btn-danger" href="/ALAMNI/public/index.php/supprimer/{{formation.id}}"
+                       onclick="">Supprimer</a>            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
